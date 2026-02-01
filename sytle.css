@@ -1,1 +1,40 @@
-
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f6f8;
+  margin: 0;
+  padding: 0;
+}
+.container {
+  max-width: 600px;
+  margin: 40px auto;
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 8px;
+}
+h1 {
+  margin-bottom: 10px;
+}
+.subtitle {
+  color: #555;
+  margin-bottom: 20px;
+}
+form label {
+  display: block;
+  margin-bottom: 12px;
+  cursor: pointer;
+}
+button {
+  margin-top: 15px;
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+}
+.result {
+  margin-top: 25px;
+  padding: 15px;
+  border-radius: 6px;
+  background-color: #eef2f5;
+}
+.hidden {
+  display: none;
+}
