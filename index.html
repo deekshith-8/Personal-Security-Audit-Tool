@@ -1,1 +1,48 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Personal Security Audit Tool</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Personal Security Audit Tool</h1>
+    <p class="subtitle">
+      Check your everyday digital security habits and get practical recommendations.
+    </p>
+    <form id="securityForm">
+      <label>
+        <input type="checkbox" id="reusePasswords">
+        I reuse the same password on multiple sites
+      </label>
+      <label>
+        <input type="checkbox" id="use2FA">
+        I use two-factor authentication (2FA)
+      </label>
+      <label>
+        <input type="checkbox" id="publicWifi">
+        I often use public Wi-Fi
+      </label>
+      <label>
+        <input type="checkbox" id="browserPasswords">
+        I store passwords in my browser
+      </label>
+      <label>
+        <input type="checkbox" id="updateSoftware">
+        I regularly update my software
+      </label>
+      <button type="button" id="analyzeBtn">
+        Analyze Security
+      </button>
+    </form>
+    <div id="result" class="result hidden">
+      <h2>Security Analysis</h2>
+      <p id="riskLevel"></p>
+      <ul id="weakPractices"></ul>
+      <ul id="recommendations"></ul>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
