@@ -23,5 +23,10 @@ https://deekshith-8.github.io/secure-score/
 - User authentication
 - Score history tracking
 
+## Screenshots
+
+![Dashboard](assets/dashboard.png)
+![Result](assets/result.png)
+
 ## Author
 **U.M Deekshith Gowda**
