@@ -2,53 +2,65 @@ document.getElementById("auditForm").addEventListener("submit", function(e) {
   e.preventDefault();
 
   let score = 0;
+  let tips = [];
+
   const password = document.getElementById("password").value;
   const twoFA = document.getElementById("twoFA").checked;
   const updates = document.getElementById("updates").checked;
   const publicWifi = document.getElementById("publicWifi").checked;
   const passwordReuse = document.getElementById("passwordReuse").checked;
 
-  // Password Strength Check
   const strongRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
 
   if (strongRegex.test(password)) {
     score += 40;
   } else if (password.length >= 6) {
     score += 20;
+    tips.push("Use uppercase, numbers, and special characters.");
   } else {
     score += 5;
+    tips.push("Use a stronger password (min 8 chars).");
   }
 
   if (twoFA) score += 20;
-  if (updates) score += 20;
-  if (!publicWifi) score += 10;
-  if (!passwordReuse) score += 10;
+  else tips.push("Enable Two-Factor Authentication.");
 
-  displayResult(score);
+  if (updates) score += 20;
+  else tips.push("Keep your software updated.");
+
+  if (!publicWifi) score += 10;
+  else tips.push("Avoid public WiFi or use a VPN.");
+
+  if (!passwordReuse) score += 10;
+  else tips.push("Do not reuse passwords.");
+
+  displayResult(score, tips);
 });
 
-function displayResult(score) {
+function displayResult(score, tips) {
   const resultDiv = document.getElementById("result");
-  const scoreCircle = document.getElementById("scoreCircle");
+  const progressBar = document.getElementById("progressBar");
+  const scoreText = document.getElementById("scoreText");
   const feedback = document.getElementById("feedback");
   const lastScoreText = document.getElementById("lastScore");
 
   resultDiv.classList.remove("hidden");
 
-  scoreCircle.textContent = score + "%";
+  progressBar.style.width = score + "%";
+  scoreText.textContent = score + "% Secure";
 
   if (score >= 80) {
-    scoreCircle.style.background = "#22c55e";
-    feedback.textContent = "Excellent! Your digital security practices are strong.";
+    feedback.innerHTML = "🟢 Excellent Security Practices!";
   } else if (score >= 50) {
-    scoreCircle.style.background = "#facc15";
-    feedback.textContent = "Moderate security. Consider improving password habits and enabling 2FA.";
+    feedback.innerHTML = "🟡 Moderate Risk – Improve your habits.";
   } else {
-    scoreCircle.style.background = "#ef4444";
-    feedback.textContent = "High risk! Strengthen your security habits immediately.";
+    feedback.innerHTML = "🔴 High Risk – Take action immediately.";
   }
 
-  // Save previous score
+  if (tips.length > 0) {
+    feedback.innerHTML += "<br><br><strong>Recommendations:</strong><br>" + tips.join("<br>");
+  }
+
   const prev = localStorage.getItem("lastScore");
   if (prev) {
     lastScoreText.textContent = "Previous Score: " + prev + "%";
