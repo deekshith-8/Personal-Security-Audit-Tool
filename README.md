@@ -14,9 +14,10 @@ A web-based tool that evaluates digital security habits and generates a personal
 - Local score tracking (localStorage)
 
 ## Tech Stack
-- HTML5
-- CSS3
-- JavaScript (Vanilla JS)
+
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5)  
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?logo=css3)  
+![JavaScript](https://img.shields.io/badge/JS-F7DF1E?logo=javascript)
 
 ## Live Demo
 https://deekshith-8.github.io/secure-score/
