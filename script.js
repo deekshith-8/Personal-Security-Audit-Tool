@@ -1,61 +1,58 @@
-document.getElementById("analyzeBtn").addEventListener("click", analyzeSecurity);
-function analyzeSecurity() {
-  let riskScore = 0;
-  let weakPractices = [];
-  let recommendations = [];
-  const reusePasswords = document.getElementById("reusePasswords").checked;
-  const use2FA = document.getElementById("use2FA").checked;
+document.getElementById("auditForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  let score = 0;
+  const password = document.getElementById("password").value;
+  const twoFA = document.getElementById("twoFA").checked;
+  const updates = document.getElementById("updates").checked;
   const publicWifi = document.getElementById("publicWifi").checked;
-  const browserPasswords = document.getElementById("browserPasswords").checked;
-  const updateSoftware = document.getElementById("updateSoftware").checked;
-  if (reusePasswords) {
-    riskScore++;
-    weakPractices.push("Reusing passwords across multiple sites");
-    recommendations.push("Use unique passwords for each account.");
+  const passwordReuse = document.getElementById("passwordReuse").checked;
+
+  // Password Strength Check
+  const strongRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
+
+  if (strongRegex.test(password)) {
+    score += 40;
+  } else if (password.length >= 6) {
+    score += 20;
+  } else {
+    score += 5;
   }
-  if (!use2FA) {
-    riskScore++;
-    weakPractices.push("Two-factor authentication not enabled");
-    recommendations.push("Enable 2FA wherever possible.");
+
+  if (twoFA) score += 20;
+  if (updates) score += 20;
+  if (!publicWifi) score += 10;
+  if (!passwordReuse) score += 10;
+
+  displayResult(score);
+});
+
+function displayResult(score) {
+  const resultDiv = document.getElementById("result");
+  const scoreCircle = document.getElementById("scoreCircle");
+  const feedback = document.getElementById("feedback");
+  const lastScoreText = document.getElementById("lastScore");
+
+  resultDiv.classList.remove("hidden");
+
+  scoreCircle.textContent = score + "%";
+
+  if (score >= 80) {
+    scoreCircle.style.background = "#22c55e";
+    feedback.textContent = "Excellent! Your digital security practices are strong.";
+  } else if (score >= 50) {
+    scoreCircle.style.background = "#facc15";
+    feedback.textContent = "Moderate security. Consider improving password habits and enabling 2FA.";
+  } else {
+    scoreCircle.style.background = "#ef4444";
+    feedback.textContent = "High risk! Strengthen your security habits immediately.";
   }
-  if (publicWifi) {
-    riskScore++;
-    weakPractices.push("Frequent use of public Wi-Fi");
-    recommendations.push("Avoid public Wi-Fi for sensitive activities or use a VPN.");
+
+  // Save previous score
+  const prev = localStorage.getItem("lastScore");
+  if (prev) {
+    lastScoreText.textContent = "Previous Score: " + prev + "%";
   }
-  if (browserPasswords) {
-    riskScore++;
-    weakPractices.push("Storing passwords in browser");
-    recommendations.push("Use a dedicated password manager.");
-  }
-  if (!updateSoftware) {
-    riskScore++;
-    weakPractices.push("Software not updated regularly");
-    recommendations.push("Keep your system and apps up to date.");
-  }
-  let riskLevel = "Low";
-  if (riskScore >= 4) {
-    riskLevel = "High";
-  } else if (riskScore >= 2) {
-    riskLevel = "Medium";
-  }
-  displayResults(riskLevel, weakPractices, recommendations);
-}
-function displayResults(level, weak, recs) {
-  document.getElementById("result").classList.remove("hidden");
-  document.getElementById("riskLevel").innerText = `Risk Level: ${level}`;
- const weakList = document.getElementById("weakPractices");
-  weakList.innerHTML = "<h3>Weak Practices</h3>";
-  weak.forEach(item => {
-    const li = document.createElement("li");
-    li.textContent = item;
-    weakList.appendChild(li);
-  });
- const recList = document.getElementById("recommendations");
-  recList.innerHTML = "<h3>Recommendations</h3>";
-  recs.forEach(item => {
-    const li = document.createElement("li");
-    li.textContent = item;
-    recList.appendChild(li);
-  });
+
+  localStorage.setItem("lastScore", score);
 }
