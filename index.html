@@ -1,57 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Personal Security Audit Tool</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
   <div class="container">
-    <h1>Personal Security Audit Tool</h1>
-    <p class="subtitle">
-      Check your everyday digital security habits and get practical recommendations.
-    </p>
-    <form id="securityForm">
+    <h1>🔐 Personal Security Audit Tool</h1>
+    <p>Check your digital security habits instantly.</p>
+
+    <form id="auditForm">
+
+      <label>Password:</label>
+      <input type="password" id="password" placeholder="Enter your password" required>
+
       <label>
-        <input type="checkbox" id="reusePasswords">
-        I reuse the same password on multiple sites
+        <input type="checkbox" id="twoFA">
+        I use Two-Factor Authentication
       </label>
+
       <label>
-        <input type="checkbox" id="use2FA">
-        I use two-factor authentication (2FA)
-      </label>
-      <label>
-        <input type="checkbox" id="publicWifi">
-        I often use public Wi-Fi
-      </label>
-      <label>
-        <input type="checkbox" id="browserPasswords">
-        I store passwords in my browser
-      </label>
-      <label>
-        <input type="checkbox" id="updateSoftware">
+        <input type="checkbox" id="updates">
         I regularly update my software
       </label>
-      <button type="button" id="analyzeBtn">
-        Analyze Security
-      </button>
+
+      <label>
+        <input type="checkbox" id="publicWifi">
+        I frequently use public WiFi
+      </label>
+
+      <label>
+        <input type="checkbox" id="passwordReuse">
+        I reuse passwords across websites
+      </label>
+
+      <button type="submit">Run Audit</button>
+
     </form>
-    <div id="result" class="result hidden">
-      <h2>Security Analysis</h2>
-      <p id="riskLevel"></p>
-      <div>
-        <h3>Weak Practices</h3>
-        <ul id="weakPractices"></ul>
-      </div>
-      <div>
-        <h3>Recommendations</h3>
-        <ul id="recommendations"></ul>
-      </div>
+
+    <div id="result" class="hidden">
+      <h2>Your Security Score:</h2>
+      <div id="scoreCircle"></div>
+      <p id="feedback"></p>
+      <p id="lastScore"></p>
     </div>
-    <footer class="footer">
-      <p>Made by <strong>Deekshith Gowda</strong></p>
-    </footer>
+
   </div>
+
   <script src="script.js"></script>
 </body>
 </html>
