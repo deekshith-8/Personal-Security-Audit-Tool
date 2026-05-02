@@ -34,4 +34,4 @@ https://deekshith-8.github.io/secure-score/
 ![Result](assets/result.png)
 
 ## Author
-**U.M Deekshith Gowda**
+**Deekshith Gowda**
